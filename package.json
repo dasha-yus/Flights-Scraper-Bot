@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start:dev": "npx nodemon",
+    "start": "ts-node src/index.ts",
     "build": "rimraf ./build && tsc"
   },
   "keywords": [],
