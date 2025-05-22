@@ -1,37 +1,20 @@
 # FROM ghcr.io/puppeteer/puppeteer:24.9.0
-FROM node:18
+FROM node:18-alpine
 
+# Install Chromium and dependencies
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    dumb-init
+
+# Set environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
-
-RUN apt-get update && apt-get install -y \
-    dbus \
-    libnss3 \
-    libx11-xcb1 \
-    libxcomposite1 \
-    libxcursor1 \
-    libxdamage1 \
-    libxi6 \
-    libxtst6 \
-    libxrandr2 \
-    libasound2 \
-    libpangocairo-1.0-0 \
-    libatk1.0-0 \
-    libcups2 \
-    libxss1 \
-    libxshmfence1 \
-    libgbm-dev \
-    libgtk-3-0 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Google Chrome Stable and fonts
-# Note: this installs the necessary libs to make the browser work with Puppeteer.
-RUN apt-get update && apt-get install curl gnupg -y \
-    && curl --location --silent https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update \
-    && apt-get install google-chrome-stable -y --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    PUPPETEER_DISABLE_DEV_SHM_USAGE=true
 
 WORKDIR /usr/src/app
 
