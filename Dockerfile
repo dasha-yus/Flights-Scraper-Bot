@@ -7,10 +7,6 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN apt-get update
-RUN apt-get install -y chromium
-# rm -rf /var/lib/apt/lists/*
-
 RUN npm ci
 COPY . .
 CMD ["npx", "ts-node", "src/index.ts"]
