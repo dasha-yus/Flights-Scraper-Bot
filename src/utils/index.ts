@@ -3,10 +3,17 @@ import { ScrapingResult } from "../scrapers";
 
 export const setupBrowser = async () => {
     const browser = await puppeteer.launch({
-        // Headless option allows us to disable visible GUI, so the browser runs in the "background"
-        // for development lets keep this to true so we can see what's going on but in
-        // on a server we must set this to true
-        headless: false,
+        args: [
+            "--disable-setuid-sandbox",
+            "--no-sandbox",
+            "--single-process",
+            "--no-zygote",
+        ],
+        executablePath:
+            process.env.NODE_ENV === "production"
+                ? process.env.PUPPETEER_EXECUTABLE_PATH
+                : puppeteer.executablePath(),
+        headless: false
     })
     return browser;
 }
