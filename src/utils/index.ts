@@ -4,15 +4,13 @@ import { ScrapingResult } from "../scrapers";
 export const setupBrowser = async () => {
     const browser = await puppeteer.launch({
         args: [
-            "--disable-setuid-sandbox",
-            "--no-sandbox",
-            "--single-process",
-            "--no-zygote",
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
         ],
         executablePath: process.env.NODE_ENV === "production"
             ? process.env.PUPPETEER_EXECUTABLE_PATH
             : puppeteer.executablePath(),
-        headless: process.env.NODE_ENV === "production"
+        headless: false
     })
     return browser;
 }
