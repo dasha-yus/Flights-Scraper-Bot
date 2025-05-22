@@ -7,10 +7,9 @@ export const setupBrowser = async () => {
             '--no-sandbox',
             '--disable-setuid-sandbox',
         ],
-        // executablePath: process.env.NODE_ENV === "production"
-        //     ? process.env.PUPPETEER_EXECUTABLE_PATH
-        //     : puppeteer.executablePath(),
-        executablePath: '/usr/bin/google-chrome',
+        executablePath: process.env.NODE_ENV === "production"
+            ? process.env.PUPPETEER_EXECUTABLE_PATH
+            : puppeteer.executablePath(),
         headless: false
     })
     return browser;
