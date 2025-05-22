@@ -8,4 +8,4 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-CMD [ "npx", "ts-node", "src/index.ts" ]
+CMD ["npx", "ts-node", "src/index.ts"]

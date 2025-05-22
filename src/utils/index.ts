@@ -9,11 +9,11 @@ export const setupBrowser = async () => {
             "--single-process",
             "--no-zygote",
         ],
-        // executablePath:
-        //     process.env.NODE_ENV === "production"
-        //         ? process.env.PUPPETEER_EXECUTABLE_PATH
-        //         : puppeteer.executablePath(),
-        headless: false
+        executablePath: puppeteer.executablePath(),
+            // process.env.NODE_ENV === "production"
+            //     ? process.env.PUPPETEER_EXECUTABLE_PATH
+            //     : puppeteer.executablePath(),
+        // headless: false
     })
     return browser;
 }

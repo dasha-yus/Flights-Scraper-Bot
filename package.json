@@ -5,8 +5,7 @@
   "scripts": {
     "start:dev": "npx nodemon",
     "start": "ts-node src/index.ts",
-    "build": "rimraf ./build && tsc",
-    "postinstall": "npx puppeteer install"
+    "build": "rimraf ./build && tsc"
   },
   "keywords": [],
   "author": "",
