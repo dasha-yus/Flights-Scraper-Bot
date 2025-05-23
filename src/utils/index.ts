@@ -2,20 +2,17 @@ import puppeteer, { Browser } from "puppeteer";
 import { ScrapingResult } from "../scrapers";
 
 export const setupBrowser = async () => {
-    // const browser = await puppeteer.launch({
-    //     args: [
-    //         '--no-sandbox',
-    //         '--disable-setuid-sandbox',
-    //     ],
-    //     executablePath: process.env.NODE_ENV === "production"
-    //         ? process.env.PUPPETEER_EXECUTABLE_PATH
-    //         : puppeteer.executablePath(),
-    //     headless: false
-    // })
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: process.env.NODE_ENV === "production"
+            ? process.env.PUPPETEER_EXECUTABLE_PATH
+            : puppeteer.executablePath(),
         headless: false
-    });
+    })
+    // const browser = await puppeteer.launch({
+    //     args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    //     headless: false
+    // });
     return browser;
 }
 
