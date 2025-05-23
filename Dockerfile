@@ -20,35 +20,56 @@
 # RUN npm ci
 # COPY . .
 # CMD ["npx", "ts-node", "src/index.ts"]
-FROM node:24-alpine
 
-# Install dependencies for Chrome and D-Bus
-RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg2 \
-    dbus \
-    && wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update && apt-get install -y google-chrome-stable \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+FROM node:18-slim
 
-# Ensure D-Bus socket is created
-RUN mkdir -p /run/dbus \
-    && dbus-uuidgen --ensure
+RUN apt-get update && \
+  apt-get install -y \
+  ca-certificates \
+  fonts-liberation \
+  libasound2 \
+  libatk1.0-0 \
+  libatk-bridge2.0-0 \
+  libc6 \
+  libcairo2 \
+  libcups2 \
+  libdbus-1-3 \
+  libdrm2 \
+  libexpat1 \
+  libfontconfig1 \
+  libgbm1 \
+  libgcc1 \
+  libglib2.0-0 \
+  libgtk-3-0 \
+  libnss3 \
+  libpango-1.0-0 \
+  libpangocairo-1.0-0 \
+  libstdc++6 \
+  libx11-6 \
+  libx11-xcb1 \
+  libxcb1 \
+  libxcomposite1 \
+  libxcursor1 \
+  libxdamage1 \
+  libxext6 \
+  libxfixes3 \
+  libxi6 \
+  libxrandr2 \
+  libxrender1 \
+  libxshmfence1 \
+  libxss1 \
+  libxtst6 \
+  lsb-release \
+  xdg-utils \
+  wget \
+  --no-install-recommends && \
+  rm -rf /var/lib/apt/lists/*
 
-# Set environment variables for Puppeteer
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+WORKDIR /app
 
-# Set the working directory
-WORKDIR /usr/src/app
-
-# Copy package files and install dependencies
 COPY package*.json ./
-RUN npm ci
+RUN npm install
+COPY . ./
 
-# Copy the rest of your application code
-COPY . .
 
-# Start the application
 CMD ["npx", "ts-node", "src/index.ts"]
