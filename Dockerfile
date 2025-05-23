@@ -20,7 +20,7 @@
 # RUN npm ci
 # COPY . .
 # CMD ["npx", "ts-node", "src/index.ts"]
-FROM node:18-slim
+FROM node:24-alpine
 
 # Install dependencies for Chrome and D-Bus
 RUN apt-get update && apt-get install -y \
