@@ -1,11 +1,13 @@
 import dotenv from 'dotenv';
 import { Bot, GrammyError, HttpError } from 'grammy';
+import express from 'express';
 
 import { transformMessage } from './utils';
 import { scrapeFlights } from './scrapers';
 
 dotenv.config();
 
+const app = express()
 const bot = new Bot(process.env.BOT_TOKEN || '');
 
 bot.api.setMyCommands([
@@ -44,3 +46,12 @@ bot.catch((err) => {
 });
 
 bot.start();
+
+const port = process.env.PORT ? +process.env.PORT : 5000;
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on http://0.0.0.0:${port}`);
+});
+
+app.get('/', (req, res) => {
+    res.send('Flights scraper bot')
+})

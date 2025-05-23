@@ -10,7 +10,7 @@ export type ScrapingResult = {
     price: number,
 }
 
-export const scrapeFlights = async (attempts = 3): Promise<Array<ScrapingResult>> => {
+export const scrapeFlights = async (attempts = 5): Promise<Array<ScrapingResult>> => {
     let browser;
     try {
         browser = await setupBrowser();
