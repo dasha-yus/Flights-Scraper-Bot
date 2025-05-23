@@ -23,8 +23,10 @@
 
 FROM node:18-slim
 
+# Install necessary packages for Chromium
 RUN apt-get update && \
   apt-get install -y \
+  chromium \
   ca-certificates \
   fonts-liberation \
   libasound2 \
@@ -70,6 +72,5 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . ./
-
 
 CMD ["npx", "ts-node", "src/index.ts"]

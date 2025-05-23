@@ -8,7 +8,7 @@ export const setupBrowser = async () => {
         //     ? process.env.PUPPETEER_EXECUTABLE_PATH
         //     : puppeteer.executablePath(),
         // headless: false
-        headless: true,
+        headless: false,
     })
     return browser;
 }
