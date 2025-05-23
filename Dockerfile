@@ -7,20 +7,6 @@
 
 # COPY package*.json ./
 
-# RUN npm ci
-# COPY . .
-# CMD ["npx", "ts-node", "src/index.ts"]
-
-# FROM ghcr.io/puppeteer/puppeteer:24.9.0
-
-# WORKDIR /usr/src/app
-
-# COPY package*.json ./
-
-# RUN npm ci
-# COPY . .
-# CMD ["npx", "ts-node", "src/index.ts"]
-
 FROM node:18-slim
 
 # Install necessary packages for Chromium
