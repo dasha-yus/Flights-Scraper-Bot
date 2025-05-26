@@ -1,4 +1,4 @@
-import { setupBrowser } from "../utils";
+import { setupBrowser } from "../utils/browser";
 import { scrapeNorwegian } from "./norwegian";
 
 export enum Airline {
@@ -14,7 +14,7 @@ export const scrapeFlights = async (attempts = 5): Promise<Array<ScrapingResult>
     let browser;
     try {
         browser = await setupBrowser();
-        const norwegian = await scrapeNorwegian(browser);
+        const norwegian = await scrapeNorwegian(browser, { from: 'OSL', to: 'VNO', date: new Date("2025-07-10") });
         return [norwegian];
     } catch (error) {
         console.error('Scraping error:', error);

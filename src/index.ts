@@ -2,8 +2,7 @@ import dotenv from 'dotenv';
 import { Bot, GrammyError, HttpError } from 'grammy';
 import express from 'express';
 
-import { transformMessage } from './utils';
-import { scrapeFlights } from './scrapers';
+import { scrape, test } from './commands';
 
 dotenv.config();
 
@@ -15,22 +14,9 @@ bot.api.setMyCommands([
     { command: 'scrape', description: 'Scrape flights' },
 ])
 
-bot.command('test', async (ctx) => {
-    await ctx.reply('Test command');
-})
+bot.command('test', test)
 
-bot.command('scrape', async (ctx) => {
-    const flights = await scrapeFlights();
-    if (flights.length) {
-        const message = transformMessage(flights);
-        try {
-            await ctx.reply(message);
-            console.log('Message sent successfully');
-        } catch (error) {
-            console.error('Failed to scrape flights', error);
-        }
-    }
-})
+bot.command('scrape', scrape)
 
 bot.catch((err) => {
     const ctx = err.ctx;
