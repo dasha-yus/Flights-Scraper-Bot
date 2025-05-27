@@ -1,20 +1,33 @@
 import { setupBrowser } from "../utils/browser";
+
+// import { scrapeAirBaltic } from "./airBaltic";
 import { scrapeNorwegian } from "./norwegian";
 
 export enum Airline {
     Norwegian = "Norwegian",
+    AirBaltic = "AirBaltic",
+}
+
+export type FlightSearchParams = {
+    from: string;
+    to: string;
+    date: Date;
 }
 
 export type ScrapingResult = {
+    date: Date,
+    from: string,
+    to: string;
     label: Airline,
-    price: number,
+    prices: number[],
 }
 
-export const scrapeFlights = async (attempts = 5): Promise<Array<ScrapingResult>> => {
+export const scrapeFlights = async (attempts = process.env.MODE_ENV === 'production' ? 5 : 1): Promise<Array<ScrapingResult>> => {
     let browser;
     try {
         browser = await setupBrowser();
         const norwegian = await scrapeNorwegian(browser, { from: 'OSL', to: 'VNO', date: new Date("2025-07-10") });
+        // const airBaltic = await scrapeAirBaltic(browser, { from: 'AMS', to: 'VNO', date: new Date("2025-07-16") });
         return [norwegian];
     } catch (error) {
         console.error('Scraping error:', error);

@@ -7,10 +7,12 @@ puppeteer.use(StealthPlugin());
 export const setupBrowser = async () => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        executablePath: process.env.NODE_ENV === "production"
-            ? process.env.PUPPETEER_EXECUTABLE_PATH
-            : puppeteer.executablePath(),
+        // executablePath: process.env.NODE_ENV === "production"
+        //     ? process.env.PUPPETEER_EXECUTABLE_PATH
+        //     : puppeteer.executablePath(),
         // headless: false,
+        // slowMo: 250,
+        // devtools: true
     })
     return browser;
 }
