@@ -18,7 +18,7 @@ export const transformMessage = (flights: Array<ScrapingResult>): string => {
     const flightsMsg = Object.entries(groupedFlights).reduce((msg, [date, flightsOnDate]) => {
         const flightsForDate = flightsOnDate
             .map((flight) => {
-                const pricesStr = convertPricesToString(flight.prices);
+                const pricesStr = convertPricesToString(flight.prices, flight.currency);
                 return `${flight.label}: ${pricesStr}`;
             })
             .join("\n");
@@ -29,6 +29,6 @@ export const transformMessage = (flights: Array<ScrapingResult>): string => {
     return message;
 };
 
-const convertPricesToString = (prices: number[]) => {
-    return prices.map(price => `${price}€`).join(', ')
+const convertPricesToString = (prices: number[], currency?: string) => {
+    return prices.map(price => `${price}${currency ?? '€'}`).join(', ')
 }

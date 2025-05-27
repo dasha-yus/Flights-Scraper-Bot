@@ -33,3 +33,4 @@ With this bot, you can stay informed about the latest flight options without the
   - PORT - server port
   - NORWEGIAN_URL - Norwegian website url
   - AIR_BALTIC_URL - AirBaltic website url
+  - RYANAIR_URL - Ryanair website url
