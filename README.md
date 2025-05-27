@@ -25,7 +25,6 @@ With this bot, you can stay informed about the latest flight options without the
  - `npm install`
  - `npm run start:dev`
 
-# Prod Environment
 
 ### Environment variables
 
